@@ -50,7 +50,7 @@ async def get_movies(
 @router.get("/{movie_id}/", response_model=MovieDetailResponseSchema)
 async def get_movie_by_id(movie_id: int, db: AsyncSession = Depends(get_db)):
     result = await db.execute(
-        select(MovieModel).filter(MovieModel.id == movie_id)
+        select(MovieModel).where(MovieModel.id == movie_id)
     )
     movie = result.scalar_one_or_none()
     if not movie:
